@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'truco_score_board_state';
 
@@ -15,7 +15,6 @@ export function useGame() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Validate keys exist
         if (
           typeof parsed.nosotros === 'number' &&
           typeof parsed.ellos === 'number' &&
@@ -27,38 +26,30 @@ export function useGame() {
           };
         }
       }
-    } catch (e) {
-      console.error('Failed to parse Truco state from LocalStorage', e);
+    } catch (error) {
+      console.error('Failed to parse Truco state from LocalStorage', error);
     }
+
     return DEFAULT_STATE;
   });
 
-  const [winner, setWinner] = useState(null);
-
-  // Sync to LocalStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
-  // Check for winner
-  useEffect(() => {
-    if (state.nosotros >= state.maxPoints) {
-      setWinner('nosotros');
-      vibratePattern([200, 100, 200, 100, 300]);
-    } else if (state.ellos >= state.maxPoints) {
-      setWinner('ellos');
-      vibratePattern([200, 100, 200, 100, 300]);
-    } else {
-      setWinner(null);
-    }
-  }, [state.nosotros, state.ellos, state.maxPoints]);
+  const winner =
+    state.nosotros >= state.maxPoints
+      ? 'nosotros'
+      : state.ellos >= state.maxPoints
+        ? 'ellos'
+        : null;
 
   const vibratePattern = (pattern) => {
     if (state.vibrateEnabled && typeof navigator !== 'undefined' && navigator.vibrate) {
       try {
         navigator.vibrate(pattern);
-      } catch (err) {
-        console.warn('Vibration not supported or allowed yet', err);
+      } catch (error) {
+        console.warn('Vibration not supported or allowed yet', error);
       }
     }
   };
@@ -75,8 +66,9 @@ export function useGame() {
       pointsAdded = target - current;
 
       if (pointsAdded > 0) {
-        // Vibrate based on amount added
-        if (amount === 2) {
+        if (target >= prev.maxPoints) {
+          vibratePattern([200, 100, 200, 100, 300]);
+        } else if (amount === 2) {
           vibratePattern([40, 50, 40]);
         } else {
           vibratePattern(40);
@@ -101,7 +93,7 @@ export function useGame() {
       if (current <= 0) return prev;
 
       pointsSubtracted = 1;
-      vibratePattern([80]); // Distinct longer single vibration for subtraction
+      vibratePattern([80]);
 
       return {
         ...prev,
@@ -118,19 +110,18 @@ export function useGame() {
       nosotros: 0,
       ellos: 0,
     }));
-    setWinner(null);
     vibratePattern([100, 50, 100]);
   };
 
   const setMaxPoints = (points) => {
     if (points !== 15 && points !== 30) return;
+
     setState((prev) => ({
       ...prev,
       maxPoints: points,
       nosotros: 0,
       ellos: 0,
     }));
-    setWinner(null);
     vibratePattern(80);
   };
 
@@ -140,6 +131,7 @@ export function useGame() {
       if (nextVibrate && typeof navigator !== 'undefined' && navigator.vibrate) {
         navigator.vibrate(50);
       }
+
       return {
         ...prev,
         vibrateEnabled: nextVibrate,
