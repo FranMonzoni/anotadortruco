@@ -18,10 +18,20 @@ export default function App() {
   } = useGame();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 
   const handleReset = () => {
+    setIsResetConfirmOpen(true);
+  };
+
+  const handleConfirmReset = () => {
     resetGame();
     setIsSettingsOpen(false);
+    setIsResetConfirmOpen(false);
+  };
+
+  const handleCancelReset = () => {
+    setIsResetConfirmOpen(false);
   };
 
   const handleSetMaxPoints = (points) => {
@@ -104,6 +114,23 @@ export default function App() {
       </footer>
 
       <WinnerModal winner={winner} onReset={handleReset} />
+
+      {isResetConfirmOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-winner-title">¿Reiniciar?</h2>
+            <p className="modal-winner-subtitle">¿Seguro que quiere reiniciar el partido?</p>
+            <div className="modal-actions">
+              <button className="btn-primary" onClick={handleConfirmReset}>
+                Aceptar
+              </button>
+              <button className="btn-toggle" onClick={handleCancelReset}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
