@@ -29,10 +29,7 @@
 body {
   font-family: var(--font-body);
   background-color: var(--color-wood-dark);
-  background-image: linear-gradient(
-      rgba(18, 11, 8, 0.8),
-      rgba(18, 11, 8, 0.8)
-    ),
+  background-image: linear-gradient(rgba(18, 11, 8, 0.8), rgba(18, 11, 8, 0.8)),
     url('./assets/wood_bg.png');
   background-size: cover;
   background-position: center;
@@ -47,6 +44,10 @@ body {
   overscroll-behavior: contain;
 }
 
+button {
+  font: inherit;
+}
+
 #root {
   width: 100%;
   height: 100vh;
@@ -55,7 +56,6 @@ body {
   flex-direction: column;
 }
 
-/* App container */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -71,7 +71,6 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* Header */
 .app-header {
   padding: 12px 16px;
   display: flex;
@@ -86,26 +85,12 @@ body {
   font-family: var(--font-title);
   font-size: 1.4rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   color: var(--color-gold);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 10px var(--color-gold-glow);
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-
-.app-title span {
-  font-size: 0.7rem;
-  font-family: var(--font-body);
-  letter-spacing: 3px;
-  color: var(--color-chalk-dim);
-  text-transform: uppercase;
-}
-
-.controls-group {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  flex: 1;
+  text-align: center;
 }
 
 .btn-icon {
@@ -129,31 +114,6 @@ body {
   transform: scale(0.92);
 }
 
-.btn-text {
-  background: rgba(252, 250, 242, 0.05);
-  border: 1px solid var(--color-chalk-dim);
-  border-radius: 8px;
-  color: var(--color-chalk);
-  padding: 0 12px;
-  height: 38px;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-text:active {
-  background: var(--color-gold-dim);
-  border-color: var(--color-gold);
-  color: var(--color-gold);
-  transform: scale(0.95);
-}
-
-/* Playboard Area */
 .playboard {
   flex: 1;
   display: flex;
@@ -161,7 +121,6 @@ body {
   overflow: hidden;
 }
 
-/* Vertical divider with chalk drawing effect */
 .chalk-divider {
   position: absolute;
   top: 0;
@@ -176,7 +135,6 @@ body {
   opacity: 0.75;
 }
 
-/* Panel representatitve of each team */
 .team-panel {
   flex: 1;
   display: flex;
@@ -187,7 +145,7 @@ body {
   transition: background-color 0.15s ease;
   overflow: hidden;
   padding: 16px 8px;
-  touch-action: none; /* Disables standard gesture actions to handle them in react */
+  touch-action: none;
 }
 
 .team-panel.nosotros {
@@ -202,7 +160,6 @@ body {
   background-color: var(--color-active-red-bg);
 }
 
-/* Header inside the panel */
 .team-header {
   text-align: center;
   margin-bottom: 16px;
@@ -233,7 +190,16 @@ body {
   letter-spacing: 1.5px;
 }
 
-/* Score display area */
+.team-header-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--color-chalk-dim);
+  box-shadow: 0 0 4px var(--color-chalk-glow);
+  opacity: 0.6;
+  margin-bottom: 8px;
+  pointer-events: none;
+}
+
 .score-area {
   flex: 1;
   display: flex;
@@ -241,10 +207,9 @@ body {
   gap: 16px;
   align-items: center;
   justify-content: flex-start;
-  padding: 8px;
+  padding: 8px 36px;
   overflow-y: auto;
   pointer-events: none;
-  /* Hide scrollbar for a clean UI */
   scrollbar-width: none;
 }
 
@@ -252,36 +217,33 @@ body {
   display: none;
 }
 
-/* Split Buenas/Malas label */
-.stage-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-gold-dark);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  width: 80%;
-  text-align: center;
-  padding-bottom: 4px;
-  margin: 8px 0;
-  opacity: 0.8;
-}
-
-/* Matchsticks Grid */
-.matchsticks-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px 24px;
-  justify-items: center;
+.matchsticks-stage {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 180px;
+  gap: 12px;
 }
 
-/* SVG Matchstick styling */
+.stage-divider {
+  width: 70%;
+  max-width: 140px;
+  height: 1px;
+  background: var(--color-chalk-dim);
+  box-shadow: 0 0 4px var(--color-chalk-glow);
+  opacity: 0.6;
+}
+
+.matchsticks-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .matchstick-svg {
-  width: 65px;
-  height: 65px;
+  width: 56px;
+  height: 56px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -296,9 +258,25 @@ body {
   transition: fill 0.3s ease, opacity 0.3s ease;
 }
 
-/* Edge adjustment buttons */
-.edge-btn {
+.edge-controls {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 8;
+}
+
+.edge-controls.left {
+  left: 12px;
+}
+
+.edge-controls.right {
+  right: 12px;
+}
+
+.edge-btn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -311,7 +289,6 @@ body {
   font-family: var(--font-body);
   font-size: 1.4rem;
   cursor: pointer;
-  z-index: 8;
   opacity: 0.5;
   transition: all 0.2s ease;
 }
@@ -324,47 +301,36 @@ body {
   opacity: 1;
 }
 
-.edge-btn.minus {
-  bottom: 24px;
-}
-
-.edge-btn.plus {
-  bottom: 84px;
-}
-
-.nosotros .edge-btn.minus {
-  left: 16px;
-}
-
-.nosotros .edge-btn.plus {
-  left: 16px;
-}
-
-.ellos .edge-btn.minus {
-  right: 16px;
-}
-
-.ellos .edge-btn.plus {
-  right: 16px;
-}
-
-/* Footer & Settings Panel overlay */
 .app-footer {
-  padding: 8px 16px;
-  text-align: center;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
   background: rgba(18, 11, 8, 0.7);
   border-top: 1px solid rgba(252, 250, 242, 0.05);
-  font-size: 0.7rem;
-  color: var(--color-chalk-dim);
-  letter-spacing: 1px;
 }
 
-.app-footer a {
+.btn-new-game {
+  background: transparent;
+  border: 1px solid var(--color-gold);
   color: var(--color-gold);
-  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 12px 32px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-shadow: 0 0 8px var(--color-gold-glow);
 }
 
-/* Settings Overlay Drawer */
+.btn-new-game:active {
+  background: var(--color-gold);
+  color: #120b08;
+  text-shadow: none;
+  transform: scale(0.96);
+}
+
 .settings-drawer {
   position: absolute;
   top: 0;
@@ -460,7 +426,6 @@ body {
   color: #120b08;
 }
 
-/* Modal Victory overlay */
 .modal-overlay {
   position: absolute;
   top: 0;
@@ -477,11 +442,7 @@ body {
 }
 
 .modal-content {
-  background: radial-gradient(
-      circle at center,
-      var(--color-wood-light) 0%,
-      var(--color-wood-dark) 100%
-    ),
+  background: radial-gradient(circle at center, var(--color-wood-light) 0%, var(--color-wood-dark) 100%),
     url('./assets/wood_bg.png');
   background-size: cover;
   border: 2px solid var(--color-gold);
@@ -515,9 +476,11 @@ body {
   100% {
     transform: translateY(0) rotate(0deg);
   }
+
   25% {
     transform: translateY(-8px) rotate(-5deg);
   }
+
   75% {
     transform: translateY(-8px) rotate(5deg);
   }
@@ -566,7 +529,6 @@ body {
   background: var(--color-gold-bright);
 }
 
-/* Feedback messages / Help visual hints */
 .gesture-hint {
   position: absolute;
   top: 50%;
@@ -588,12 +550,12 @@ body {
   100% {
     opacity: 0.35;
   }
+
   50% {
     opacity: 0.7;
   }
 }
 
-/* Animations for adding points */
 .animate-add {
   animation: drawMatch 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
 }
@@ -603,13 +565,13 @@ body {
     transform: scale(0.85);
     opacity: 0.2;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
   }
 }
 
-/* Point bubble overlay (floating text on tap) */
 .point-bubble {
   position: absolute;
   color: var(--color-gold);
@@ -632,6 +594,7 @@ body {
     transform: translate(-50%, -50%) translateY(0) scale(0.6);
     opacity: 1;
   }
+
   100% {
     transform: translate(-50%, -50%) translateY(-60px) scale(1.1);
     opacity: 0;
