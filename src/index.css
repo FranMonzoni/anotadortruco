@@ -71,6 +71,14 @@ body {
   backdrop-filter: blur(2px);
 }
 
+@media (max-width: 400px) {
+  .app-container {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}
+
 /* Header */
 .app-header {
   padding: 12px 16px;
@@ -80,6 +88,12 @@ body {
   border-bottom: 2px dashed var(--color-chalk-dim);
   background: rgba(18, 11, 8, 0.6);
   z-index: 10;
+}
+
+@media (max-width: 400px) {
+  .app-header {
+    padding: 10px 12px;
+  }
 }
 
 .app-title {
@@ -92,6 +106,18 @@ body {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+}
+
+@media (max-width: 400px) {
+  .app-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  
+  .app-title span {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+  }
 }
 
 .app-title span {
@@ -123,6 +149,13 @@ body {
   outline: none;
 }
 
+@media (max-width: 400px) {
+  .btn-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 .btn-icon:active {
   background: var(--color-gold-dim);
   border-color: var(--color-gold);
@@ -144,6 +177,14 @@ body {
   gap: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 400px) {
+  .btn-text {
+    padding: 0 10px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
 }
 
 .btn-text:active {
@@ -190,6 +231,12 @@ body {
   touch-action: none; /* Disables standard gesture actions to handle them in react */
 }
 
+@media (max-width: 400px) {
+  .team-panel {
+    padding: 12px 6px;
+  }
+}
+
 .team-panel.nosotros {
   border-right: 1px dashed rgba(252, 250, 242, 0.1);
 }
@@ -218,6 +265,12 @@ body {
   transition: color 0.3s ease;
 }
 
+@media (max-width: 400px) {
+  .team-name {
+    font-size: 1.3rem;
+  }
+}
+
 .team-panel.nosotros .team-name {
   color: var(--color-gold);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px var(--color-gold-glow);
@@ -233,6 +286,12 @@ body {
   letter-spacing: 1.5px;
 }
 
+@media (max-width: 400px) {
+  .team-score-num {
+    font-size: 0.8rem;
+  }
+}
+
 /* Score display area */
 .score-area {
   flex: 1;
@@ -246,6 +305,13 @@ body {
   pointer-events: none;
   /* Hide scrollbar for a clean UI */
   scrollbar-width: none;
+}
+
+@media (max-width: 400px) {
+  .score-area {
+    padding: 6px;
+    gap: 12px;
+  }
 }
 
 .score-area::-webkit-scrollbar {
@@ -278,12 +344,26 @@ body {
   max-width: 180px;
 }
 
+@media (max-width: 400px) {
+  .matchsticks-container {
+    gap: 16px 20px;
+    max-width: 160px;
+  }
+}
+
 /* SVG Matchstick styling */
 .matchstick-svg {
   width: 65px;
   height: 65px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (max-width: 400px) {
+  .matchstick-svg {
+    width: 55px;
+    height: 55px;
+  }
 }
 
 .matchstick-line {
@@ -314,6 +394,32 @@ body {
   z-index: 8;
   opacity: 0.5;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 400px) {
+  .edge-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .edge-btn.minus {
+    bottom: 20px;
+  }
+  
+  .edge-btn.plus {
+    bottom: 72px;
+  }
+  
+  .nosotros .edge-btn.minus,
+  .nosotros .edge-btn.plus {
+    left: 12px;
+  }
+  
+  .ellos .edge-btn.minus,
+  .ellos .edge-btn.plus {
+    right: 12px;
+  }
 }
 
 .edge-btn:active {
@@ -359,6 +465,13 @@ body {
   letter-spacing: 1px;
 }
 
+@media (max-width: 400px) {
+  .app-footer {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+  }
+}
+
 .app-footer a {
   color: var(--color-gold);
   text-decoration: none;
@@ -383,6 +496,12 @@ body {
   transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
+@media (max-width: 400px) {
+  .settings-drawer {
+    padding: 20px;
+  }
+}
+
 .settings-drawer.open {
   transform: translateY(0);
 }
@@ -397,6 +516,13 @@ body {
   text-shadow: 0 0 10px var(--color-gold-glow);
 }
 
+@media (max-width: 400px) {
+  .settings-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+}
+
 .settings-option {
   width: 100%;
   max-width: 320px;
@@ -406,11 +532,23 @@ body {
   gap: 8px;
 }
 
+@media (max-width: 400px) {
+  .settings-option {
+    margin-bottom: 20px;
+  }
+}
+
 .settings-label {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--color-chalk-dim);
+}
+
+@media (max-width: 400px) {
+  .settings-label {
+    font-size: 0.75rem;
+  }
 }
 
 .settings-buttons {
@@ -430,6 +568,13 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 400px) {
+  .btn-toggle {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
 
 .btn-toggle.active {
@@ -453,6 +598,14 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 400px) {
+  .close-settings-btn {
+    margin-top: 16px;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }
 
 .close-settings-btn:active {
@@ -496,6 +649,13 @@ body {
   animation: modalIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
+@media (max-width: 400px) {
+  .modal-content {
+    padding: 24px 20px;
+    max-width: 90%;
+  }
+}
+
 @keyframes modalIn {
   to {
     transform: scale(1);
@@ -508,6 +668,12 @@ body {
   margin-bottom: 12px;
   display: block;
   animation: wobble 1.5s infinite;
+}
+
+@media (max-width: 400px) {
+  .modal-trophy {
+    font-size: 2.8rem;
+  }
 }
 
 @keyframes wobble {
@@ -531,11 +697,24 @@ body {
   margin-bottom: 8px;
 }
 
+@media (max-width: 400px) {
+  .modal-winner-title {
+    font-size: 1.6rem;
+  }
+}
+
 .modal-winner-subtitle {
   font-size: 1.1rem;
   font-weight: 300;
   color: var(--color-chalk);
   margin-bottom: 24px;
+}
+
+@media (max-width: 400px) {
+  .modal-winner-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
 }
 
 .modal-actions {
@@ -560,6 +739,13 @@ body {
   transition: all 0.2s ease;
 }
 
+@media (max-width: 400px) {
+  .btn-primary {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}
+
 .btn-primary:active {
   transform: translateY(2px);
   box-shadow: 0 2px 6px var(--color-gold-glow);
@@ -581,6 +767,13 @@ body {
   opacity: 0.55;
   transition: opacity 0.5s ease;
   animation: pulseHint 3s infinite ease-in-out;
+}
+
+@media (max-width: 400px) {
+  .gesture-hint {
+    font-size: 0.75rem;
+    max-width: 120px;
+  }
 }
 
 @keyframes pulseHint {
@@ -620,6 +813,12 @@ body {
   text-shadow: 0 2px 4px #000, 0 0 10px var(--color-gold-glow);
   z-index: 12;
   animation: floatUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@media (max-width: 400px) {
+  .point-bubble {
+    font-size: 1.5rem;
+  }
 }
 
 .point-bubble.negative {
