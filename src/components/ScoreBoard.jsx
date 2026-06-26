@@ -20,6 +20,7 @@ export default function ScoreBoard({
   const tapTimers = useRef({ nosotros: null, ellos: null });
   const lastTapTimes = useRef({ nosotros: 0, ellos: 0 });
   const longPressStates = useRef({ nosotros: false, ellos: false });
+  const activePressStates = useRef({ nosotros: false, ellos: false });
 
   useEffect(() => {
     const currentPressTimers = pressTimers.current;
@@ -95,6 +96,7 @@ export default function ScoreBoard({
       event.preventDefault();
     }
 
+    activePressStates.current[team] = true;
     longPressStates.current[team] = false;
     setTeamActiveState(team, { tap: true, longpress: false });
 
@@ -113,7 +115,9 @@ export default function ScoreBoard({
 
   const handleEnd = (team, event) => {
     if (winner) return;
+    if (!activePressStates.current[team]) return;
 
+    activePressStates.current[team] = false;
     clearPressTimer(team);
     setTeamActiveState(team, { tap: false, longpress: false });
 
@@ -152,6 +156,8 @@ export default function ScoreBoard({
   };
 
   const handleCancel = (team) => {
+    activePressStates.current[team] = false;
+    longPressStates.current[team] = false;
     clearPressTimer(team);
     setTeamActiveState(team, { tap: false, longpress: false });
   };
@@ -174,6 +180,11 @@ export default function ScoreBoard({
     if (success) {
       createBubble(team, '-1', 'negative');
     }
+  };
+
+  const stopEdgeButtonRelease = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
   };
 
   const showInstructions = nosotrosScore === 0 && ellosScore === 0;
@@ -202,11 +213,9 @@ export default function ScoreBoard({
         className={`team-panel nosotros ${activeStates.nosotros.tap ? 'active-tap' : ''} ${
           activeStates.nosotros.longpress ? 'active-longpress' : ''
         }`}
-        onTouchStart={(event) => handleStart('nosotros', event)}
-        onTouchEnd={(event) => handleEnd('nosotros', event)}
-        onTouchCancel={() => handleCancel('nosotros')}
-        onMouseDown={(event) => handleStart('nosotros', event)}
-        onMouseUp={(event) => handleEnd('nosotros', event)}
+        onPointerDown={(event) => handleStart('nosotros', event)}
+        onPointerUp={(event) => handleEnd('nosotros', event)}
+        onPointerCancel={() => handleCancel('nosotros')}
         onMouseLeave={() => handleCancel('nosotros')}
       >
         <div className="team-header">
@@ -221,16 +230,20 @@ export default function ScoreBoard({
 
         <div className="edge-controls left">
           <button
+            type="button"
             className="edge-btn plus"
-            onTouchStart={(event) => handleEdgeButton('nosotros', 'plus', event)}
-            onMouseDown={(event) => handleEdgeButton('nosotros', 'plus', event)}
+            onPointerDown={(event) => handleEdgeButton('nosotros', 'plus', event)}
+            onPointerUp={stopEdgeButtonRelease}
+            onClick={(event) => event.stopPropagation()}
           >
             +
           </button>
           <button
+            type="button"
             className="edge-btn minus"
-            onTouchStart={(event) => handleEdgeButton('nosotros', 'minus', event)}
-            onMouseDown={(event) => handleEdgeButton('nosotros', 'minus', event)}
+            onPointerDown={(event) => handleEdgeButton('nosotros', 'minus', event)}
+            onPointerUp={stopEdgeButtonRelease}
+            onClick={(event) => event.stopPropagation()}
           >
             -
           </button>
@@ -241,11 +254,9 @@ export default function ScoreBoard({
         className={`team-panel ellos ${activeStates.ellos.tap ? 'active-tap' : ''} ${
           activeStates.ellos.longpress ? 'active-longpress' : ''
         }`}
-        onTouchStart={(event) => handleStart('ellos', event)}
-        onTouchEnd={(event) => handleEnd('ellos', event)}
-        onTouchCancel={() => handleCancel('ellos')}
-        onMouseDown={(event) => handleStart('ellos', event)}
-        onMouseUp={(event) => handleEnd('ellos', event)}
+        onPointerDown={(event) => handleStart('ellos', event)}
+        onPointerUp={(event) => handleEnd('ellos', event)}
+        onPointerCancel={() => handleCancel('ellos')}
         onMouseLeave={() => handleCancel('ellos')}
       >
         <div className="team-header">
@@ -260,16 +271,20 @@ export default function ScoreBoard({
 
         <div className="edge-controls right">
           <button
+            type="button"
             className="edge-btn plus"
-            onTouchStart={(event) => handleEdgeButton('ellos', 'plus', event)}
-            onMouseDown={(event) => handleEdgeButton('ellos', 'plus', event)}
+            onPointerDown={(event) => handleEdgeButton('ellos', 'plus', event)}
+            onPointerUp={stopEdgeButtonRelease}
+            onClick={(event) => event.stopPropagation()}
           >
             +
           </button>
           <button
+            type="button"
             className="edge-btn minus"
-            onTouchStart={(event) => handleEdgeButton('ellos', 'minus', event)}
-            onMouseDown={(event) => handleEdgeButton('ellos', 'minus', event)}
+            onPointerDown={(event) => handleEdgeButton('ellos', 'minus', event)}
+            onPointerUp={stopEdgeButtonRelease}
+            onClick={(event) => event.stopPropagation()}
           >
             -
           </button>
